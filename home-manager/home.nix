@@ -47,15 +47,61 @@
     };
   };
 
-  # TODO: Set your username
   home = {
-    username = "your-username";
-    homeDirectory = "/home/your-username";
+    username = "a2not_";
+    homeDirectory = "/home/a2not_";
   };
 
-  # Add stuff for your user as you see fit:
-  # programs.neovim.enable = true;
-  # home.packages = with pkgs; [ steam ];
+  # Add ~/.local/bin to PATH
+  environment.localBinInPath = true;
+
+  # programs.zsh.enableCompletion
+  environment.pathsToLink = [ "/share/zsh" ];
+
+  programs.zsh = {
+    enable = true;
+    enableCompletion = true;
+    enableAutosuggestions = true;
+    syntaxHighlighting.enable = true;
+
+    shellAliases = {
+      vim = "nvim";
+      l = "exa -lah --icons";
+      ls = "exa --icons";
+      sl = "exa --icons";
+      docker-compose = "docker compose";
+
+      rebuild = "sudo nixos-rebuild switch";
+    };
+
+    oh-my-zsh = {
+      enable = true;
+      plugins = [
+        "git"
+          "zsh-autosuggestions"
+          "zsh-syntax-highlighting"
+      ];
+    };
+  };
+
+  # pkgs
+  home.packages = with pkgs; [
+    neovim
+    zsh
+    tmux
+    git
+    delta
+    htop
+    bat
+    exa
+    ripgrep
+    zoxide
+    jq
+    starship
+
+    go
+    rustup
+  ];
 
   # Enable home-manager and git
   programs.home-manager.enable = true;
