@@ -11,6 +11,7 @@
     # NOTE: for lima
     (modulesPath + "/profiles/qemu-guest.nix")
     ./lima-init.nix
+
     # If you want to use modules your own flake exports (from modules/nixos):
     # outputs.nixosModules.example
 
@@ -21,7 +22,6 @@
     # You can also split up your configuration and import pieces of it here:
     # ./users.nix
 
-    # Import your generated (nixos-generate-config) hardware configuration
     ./hardware-configuration.nix
   ];
 
@@ -80,23 +80,6 @@
 
   security = {
     sudo.wheelNeedsPassword = false;
-  };
-
-  # for lima: system mounts
-  boot.loader.grub = {
-    device = "nodev";
-    efiSupport = true;
-    efiInstallAsRemovable = true;
-  };
-  fileSystems."/boot" = {
-    device = lib.mkDefault "/dev/vda1";  # /dev/disk/by-label/ESP
-      fsType = "vfat";
-  };
-  fileSystems."/" = {
-    device = "/dev/disk/by-label/nixos";
-    autoResize = true;
-    fsType = "ext4";
-    options = [ "noatime" "nodiratime" "discard" ];
   };
 
   users.users = {
