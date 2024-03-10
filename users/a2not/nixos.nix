@@ -32,9 +32,11 @@
     };
   };
 
-  users.users.a2not = {
+# avoit conflicting with lima default user
+  users.users.a2not_ = {
     isNormalUser = true;
-    home = "/home/a2not";
+    group = "users";
+    home = "/home/a2not_";
     createHome = true;
     extraGroups = [ "wheel" ]; # TODO:docker
     shell = pkgs.zsh;
