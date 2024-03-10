@@ -1,15 +1,16 @@
-# This is your system's configuration file.
-# Use this to configure your system environment (it replaces /etc/nixos/configuration.nix)
 {
   inputs,
   outputs,
   lib,
   config,
+  modulesPath,
   pkgs,
   ...
 }: {
-  # You can import other NixOS modules here
   imports = [
+    # NOTE: for lima
+    (modulesPath + "/profiles/qemu-guest.nix")
+    ./lima-init.nix
     # If you want to use modules your own flake exports (from modules/nixos):
     # outputs.nixosModules.example
 
@@ -65,22 +66,42 @@
     config.nix.registry;
 
   nix.settings = {
-    # Enable flakes and new 'nix' command
-    experimental-features = "nix-command flakes";
-    # Deduplicate and optimize nix store
+    experimental-features = [ "nix-command" "flakes" ];
     auto-optimise-store = true;
   };
 
-  # FIXME: Add the rest of your current configuration
+  networking.hostName = "a2not_";
+  networking.networkmanager.enable = true;
 
-  # TODO: Set your hostname
-  networking.hostName = "your-hostname";
-
-  # TODO: This is just an example, be sure to use whatever bootloader you prefer
   boot.loader.systemd-boot.enable = true;
+  boot.kernelPackages = pkgs.linuxPackages_latest;
 
-  # TODO: Configure your system-wide user settings (groups, etc), add more users as needed.
+  time.timeZone = "Asia/Tokyo";
+
+  security = {
+    sudo.wheelNeedsPassword = false;
+  };
+
+  # for lima: system mounts
+  boot.loader.grub = {
+    device = "nodev";
+    efiSupport = true;
+    efiInstallAsRemovable = true;
+  };
+  fileSystems."/boot" = {
+    device = lib.mkDefault "/dev/vda1";  # /dev/disk/by-label/ESP
+      fsType = "vfat";
+  };
+  fileSystems."/" = {
+    device = "/dev/disk/by-label/nixos";
+    autoResize = true;
+    fsType = "ext4";
+    options = [ "noatime" "nodiratime" "discard" ];
+  };
+
   users.users = {
+    root.password = "nixos";
+
     # NOTE: avoid conflicting with lima default user
     a2not_ = {
       # TODO: You can set an initial password for your user.
@@ -92,19 +113,15 @@
       group = "users";
       home = "/home/a2not_";
       createHome = true;
-      extraGroups = [ "wheel" ]; # TODO: docker
+      extraGroups = [ "networkmanager" "wheel" ]; # TODO: docker
       shell = pkgs.zsh;
     };
   };
 
-  # This setups a SSH server. Very important if you're setting up a headless system.
-  # Feel free to remove if you don't need it.
   services.openssh = {
     enable = true;
     settings = {
-      # Forbid root login through SSH.
       PermitRootLogin = "yes";
-      # Use keys only. Remove if you want to SSH using password (not recommended)
       PasswordAuthentication = false;
     };
   };
