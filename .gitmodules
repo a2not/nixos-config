@@ -1,3 +1,6 @@
 [submodule "modules/nixos/nixos-in-lima"]
 	path = modules/nixos/nixos-in-lima
 	url = git@github.com:a2not/nixos-in-lima.git
+[submodule "nixos/nixos-in-lima"]
+	path = nixos/nixos-in-lima
+	url = git@github.com:a2not/nixos-in-lima.git
