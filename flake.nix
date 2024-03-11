@@ -42,6 +42,16 @@
     # Your custom packages
     # Accessible through 'nix build', 'nix shell', etc
     packages = forAllSystems (system: import ./pkgs nixpkgs.legacyPackages.${system});
+
+    apps = forAllSystems (system: {
+      default = self.apps.${system}.install;
+
+      install = {
+        type = "app";
+        program = "${self.packages.${system}.install}/bin/install";
+      };
+    });
+
     # Formatter for your nix files, available through 'nix fmt'
     # Other options beside 'alejandra' include 'nixpkgs-fmt'
     formatter = forAllSystems (system: nixpkgs.legacyPackages.${system}.alejandra);
