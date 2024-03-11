@@ -90,6 +90,9 @@
   # programs.zsh.enableCompletion
   environment.pathsToLink = ["/share/zsh"];
 
+  # Add ~/.local/bin to PATH
+  environment.localBinInPath = true;
+
   # System packages
   environment.systemPackages = with pkgs; [
     vim

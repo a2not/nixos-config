@@ -55,9 +55,6 @@
     homeDirectory = "/home/" + userSettings.username;
   };
 
-  # Add ~/.local/bin to PATH
-  environment.localBinInPath = true;
-
   # pkgs
   home.packages = with pkgs; [
     tmux
