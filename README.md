@@ -7,4 +7,4 @@ It's currently not working but one day I'll fix it.
 nix-shell -p git --command "nix run github:a2not/nixos-config --extra-experimental-features nix-command --extra-experimental-features flakes"
 ```
 
-ref: https://gitlab.com/librephoenix/nixos-config/
+ref: https://github.com/librephoenix/nixos-config/blob/main/install.org
