@@ -63,5 +63,25 @@
         ];
       };
     };
+
+    # NOTE: in case if i want to use home-manager as a NixOS module instead of standalone
+    # { inputs, outputs, ... }: {
+    #   imports = [
+    #     # Import home-manager's NixOS module
+    #     inputs.home-manager.nixosModules.home-manager
+    #   ];
+    #
+    #   home-manager = {
+    #     extraSpecialArgs = { inherit inputs outputs; };
+    #     users = {
+    #       # Import your home-manager configuration
+    #       your-username = import ../home-manager/home.nix;
+    #     };
+    #   };
+    #
+    #   # To install home-manager globally
+    #   environment.systemPackages =
+    #     [ inputs.home-manager.packages.${pkgs.system}.default ];
+    # }
   };
 }
