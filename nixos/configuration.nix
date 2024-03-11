@@ -82,6 +82,11 @@
     sudo.wheelNeedsPassword = false;
   };
 
+  # set default shell to zsh
+  environment.shells = with pkgs; [zsh];
+  users.defaultUserShell = pkgs.zsh;
+  programs.zsh.enable = true;
+
   users.users = {
     root.password = "nixos";
 
