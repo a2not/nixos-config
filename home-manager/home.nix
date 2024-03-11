@@ -62,7 +62,7 @@
     delta
     htop
     bat
-    exa
+    eza
     ripgrep
     zoxide
     jq

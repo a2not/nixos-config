@@ -7,9 +7,9 @@
 
     shellAliases = {
       vim = "nvim";
-      l = "exa -lah --icons";
-      ls = "exa --icons";
-      sl = "exa --icons";
+      l = "eza -lah --icons";
+      ls = "eza --icons";
+      sl = "eza --icons";
       docker-compose = "docker compose";
 
       rebuild = "sudo nixos-rebuild switch";
