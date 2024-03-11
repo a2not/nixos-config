@@ -87,6 +87,8 @@
   environment.shells = with pkgs; [zsh];
   users.defaultUserShell = pkgs.zsh;
   programs.zsh.enable = true;
+  # programs.zsh.enableCompletion
+  environment.pathsToLink = ["/share/zsh"];
 
   # System packages
   environment.systemPackages = with pkgs; [

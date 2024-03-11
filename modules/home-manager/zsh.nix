@@ -1,7 +1,4 @@
 {pkgs, ...}: {
-  # programs.zsh.enableCompletion
-  environment.pathsToLink = ["/share/zsh"];
-
   programs.zsh = {
     enable = true;
     enableCompletion = true;
