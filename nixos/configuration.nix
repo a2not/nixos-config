@@ -77,7 +77,7 @@
   networking.hostName = systemSettings.hostname;
   networking.networkmanager.enable = true;
 
-  boot.loader.systemd-boot.enable = true;
+  # boot.loader.systemd-boot.enable = true;
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
   time.timeZone = systemSettings.timezone;
