@@ -12,12 +12,11 @@
   imports = [
     # NOTE: for lima
     (modulesPath + "/profiles/qemu-guest.nix")
-    # ../modules/nixos/nixos-in-lima/lima-init.nix
-    # ../modules/nixos/nixos-in-lima/lima-runtime.nix
+    ../modules/nixos/nixos-in-lima/lima-init.nix
+    ../modules/nixos/nixos-in-lima/lima-runtime.nix
 
     # If you want to use modules your own flake exports (from modules/nixos):
-    outputs.nixosModules.nixos-in-lima.lima-init
-    outputs.nixosModules.nixos-in-lima.lima-runtime
+    # outputs.nixosModules.example
 
     # Or modules from other flakes (such as nixos-hardware):
     # inputs.hardware.nixosModules.common-cpu-amd
