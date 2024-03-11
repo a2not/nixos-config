@@ -12,6 +12,7 @@
   imports = [
     # If you want to use modules your own flake exports (from modules/home-manager):
     outputs.homeManagerModules.neovim
+    outputs.homeManagerModules.zsh
 
     # Or modules exported from other flakes (such as nix-colors):
     # inputs.nix-colors.homeManagerModules.default
@@ -55,38 +56,8 @@
   # Add ~/.local/bin to PATH
   environment.localBinInPath = true;
 
-  # programs.zsh.enableCompletion
-  environment.pathsToLink = ["/share/zsh"];
-
-  programs.zsh = {
-    enable = true;
-    enableCompletion = true;
-    enableAutosuggestions = true;
-    syntaxHighlighting.enable = true;
-
-    shellAliases = {
-      vim = "nvim";
-      l = "exa -lah --icons";
-      ls = "exa --icons";
-      sl = "exa --icons";
-      docker-compose = "docker compose";
-
-      rebuild = "sudo nixos-rebuild switch";
-    };
-
-    oh-my-zsh = {
-      enable = true;
-      plugins = [
-        "git"
-        "zsh-autosuggestions"
-        "zsh-syntax-highlighting"
-      ];
-    };
-  };
-
   # pkgs
   home.packages = with pkgs; [
-    zsh
     tmux
     git
     delta
