@@ -41,7 +41,24 @@
   in {
     # Your custom packages
     # Accessible through 'nix build', 'nix shell', etc
-    packages = forAllSystems (system: import ./pkgs nixpkgs.legacyPackages.${system});
+    # packages = forAllSystems (system: import ./pkgs nixpkgs.legacyPackages.${system});
+
+    # packages and apps are from https://gitlab.com/librephoenix/nixos-config/
+    # this somehow enables one-liner build of NixOS in README
+    packages = forAllSystems (system: let
+      # Attribute set of nixpkgs for each system:
+      nixpkgsFor =
+        forAllSystems (system: import inputs.nixpkgs {inherit system;});
+      pkgs = nixpkgsFor.${system};
+    in {
+      default = self.packages.${system}.install;
+
+      install = pkgs.writeShellApplication {
+        name = "install";
+        runtimeInputs = with pkgs; [git];
+        text = ''${./install.sh} "$@"'';
+      };
+    });
 
     apps = forAllSystems (system: {
       default = self.apps.${system}.install;
