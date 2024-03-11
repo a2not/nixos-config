@@ -1,4 +1,4 @@
 {
-  lima-init = import "./lima-init.nix";
-  lima-runtime = import "./lima-runtime.nix";
+  lima-init = import ./lima-init.nix;
+  lima-runtime = import ./lima-runtime.nix;
 }
