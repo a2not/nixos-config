@@ -53,9 +53,9 @@
     };
 
     # Standalone home-manager configuration entrypoint
-    # Available through 'home-manager --flake .#a2not@nixos'
+    # Available through 'home-manager --flake .#a2not_@nixos'
     homeConfigurations = {
-      "a2not@nixos" = home-manager.lib.homeManagerConfiguration {
+      "a2not_@nixos" = home-manager.lib.homeManagerConfiguration {
         pkgs = nixpkgs.legacyPackages.x86_64-linux; # Home-manager requires 'pkgs' instance
         extraSpecialArgs = {inherit inputs outputs;};
         modules = [
