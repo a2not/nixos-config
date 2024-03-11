@@ -24,6 +24,20 @@
       "x86_64-darwin"
     ];
     forAllSystems = nixpkgs.lib.genAttrs systems;
+
+    systemSettings = {
+      system = "x86_64-linux";
+      hostname = "nixos";
+      timezone = "Asia/Tokyo";
+      locale = "en_US.UTF-8";
+      stateVersion = "23.11";
+    };
+
+    userSettings = {
+      username = "a2not";
+      name = "a2not";
+      email = "a2not.dev@gmail.com";
+    };
   in {
     # Your custom packages
     # Accessible through 'nix build', 'nix shell', etc
@@ -44,8 +58,13 @@
     # NixOS configuration entrypoint
     # Available through 'nixos-rebuild --flake .#nixos'
     nixosConfigurations = {
-      nixos = nixpkgs.lib.nixosSystem {
-        specialArgs = {inherit inputs outputs;};
+      system = nixpkgs.lib.nixosSystem {
+        system = systemSettings.system;
+        specialArgs = {
+          inherit inputs outputs;
+          inherit systemSettings;
+          inherit userSettings;
+        };
         modules = [
           ./nixos/configuration.nix
         ];
@@ -53,11 +72,15 @@
     };
 
     # Standalone home-manager configuration entrypoint
-    # Available through 'home-manager --flake .#a2not_@nixos'
+    # Available through 'home-manager --flake .#user'
     homeConfigurations = {
-      "a2not_@nixos" = home-manager.lib.homeManagerConfiguration {
-        pkgs = nixpkgs.legacyPackages.x86_64-linux; # Home-manager requires 'pkgs' instance
-        extraSpecialArgs = {inherit inputs outputs;};
+      user = home-manager.lib.homeManagerConfiguration {
+        pkgs = nixpkgs.legacyPackages.${systemSettings.system}; # Home-manager requires 'pkgs' instance
+        extraSpecialArgs = {
+          inherit inputs outputs;
+          inherit systemSettings;
+          inherit userSettings;
+        };
         modules = [
           ./home-manager/home.nix
         ];

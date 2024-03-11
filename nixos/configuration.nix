@@ -5,6 +5,8 @@
   config,
   modulesPath,
   pkgs,
+  systemSettings,
+  userSettings,
   ...
 }: {
   imports = [
@@ -70,13 +72,13 @@
     auto-optimise-store = true;
   };
 
-  networking.hostName = "a2not_";
+  networking.hostName = systemSettings.hostname;
   networking.networkmanager.enable = true;
 
   boot.loader.systemd-boot.enable = true;
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
-  time.timeZone = "Asia/Tokyo";
+  time.timeZone = systemSettings.timezone;
 
   security = {
     sudo.wheelNeedsPassword = false;
@@ -87,11 +89,21 @@
   users.defaultUserShell = pkgs.zsh;
   programs.zsh.enable = true;
 
-  users.users = {
-    root.password = "nixos";
+  # System packages
+  environment.systemPackages = with pkgs; [
+    vim
+    neovim
+    wget
+    zsh
+    git
+    cryptsetup
+    home-manager
+  ];
 
-    # NOTE: avoid conflicting with lima default user
-    a2not_ = {
+  users.users = {
+    # root.password = "nixos";
+
+    ${userSettings.username} = {
       # TODO: You can set an initial password for your user.
       # If you do, you can skip setting a root password by passing '--no-root-passwd' to nixos-install.
       # Be sure to change it (using passwd) after rebooting!
@@ -99,7 +111,7 @@
 
       isNormalUser = true;
       group = "users";
-      home = "/home/a2not_";
+      home = "/home/" + userSettings.username;
       createHome = true;
       extraGroups = ["networkmanager" "wheel"]; # TODO: docker
       shell = pkgs.zsh;
@@ -115,5 +127,5 @@
   };
 
   # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
-  system.stateVersion = "23.11";
+  system.stateVersion = systemSettings.stateVersion;
 }

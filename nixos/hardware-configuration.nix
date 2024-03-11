@@ -1,4 +1,8 @@
-{lib, ...}: {
+{
+  lib,
+  systemSettings,
+  ...
+}: {
   # NOTE: for lima: system mounts
   boot.loader.grub = {
     device = "nodev";
@@ -16,5 +20,5 @@
     options = ["noatime" "nodiratime" "discard"];
   };
 
-  nixpkgs.hostPlatform = "x86_64-linux";
+  nixpkgs.hostPlatform = systemSettings.system;
 }

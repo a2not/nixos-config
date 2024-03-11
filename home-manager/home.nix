@@ -6,6 +6,8 @@
   lib,
   config,
   pkgs,
+  systemSettings,
+  userSettings,
   ...
 }: {
   # You can import other home-manager modules here
@@ -49,8 +51,8 @@
   };
 
   home = {
-    username = "a2not_";
-    homeDirectory = "/home/a2not_";
+    username = userSettings.username;
+    homeDirectory = "/home/" + userSettings.username;
   };
 
   # Add ~/.local/bin to PATH
@@ -81,5 +83,5 @@
   systemd.user.startServices = "sd-switch";
 
   # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
-  home.stateVersion = "23.11";
+  home.stateVersion = systemSettings.stateVersion;
 }
