@@ -11,6 +11,8 @@ ref: https://github.com/librephoenix/nixos-config/blob/main/install.org
 
 ## system build
 
+add `--impure` flag if NixOS system config is including lima configs (to enable absolute paths in those lima configs).
+
 ```bash
 sudo nixos-rebuild switch --flake .#system
 ```
