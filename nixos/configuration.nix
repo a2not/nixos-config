@@ -3,7 +3,7 @@
   outputs,
   lib,
   config,
-  modulesPath,
+  # modulesPath,
   pkgs,
   systemSettings,
   userSettings,
@@ -11,11 +11,13 @@
 }: {
   imports = [
     # NOTE: for lima
-    (modulesPath + "/profiles/qemu-guest.nix")
+    # (modulesPath + "/profiles/qemu-guest.nix")
+    # outputs.nixosModules.nixos-in-lima.configuration
+    # outputs.nixosModules.nixos-in-lima.lima-init
+    # outputs.nixosModules.nixos-in-lima.lima-runtime
+
     # If you want to use modules your own flake exports (from modules/nixos):
-    outputs.nixosModules.nixos-in-lima.configuration
-    outputs.nixosModules.nixos-in-lima.lima-init
-    outputs.nixosModules.nixos-in-lima.lima-runtime
+    # outputs.nixosModules.example
 
     # Or modules from other flakes (such as nixos-hardware):
     # inputs.hardware.nixosModules.common-cpu-amd
