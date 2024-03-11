@@ -13,6 +13,7 @@
     # NOTE: for lima
     (modulesPath + "/profiles/qemu-guest.nix")
     # If you want to use modules your own flake exports (from modules/nixos):
+    outputs.nixosModules.nixos-in-lima.configuration
     outputs.nixosModules.nixos-in-lima.lima-init
     outputs.nixosModules.nixos-in-lima.lima-runtime
 
