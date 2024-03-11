@@ -9,6 +9,12 @@ nix-shell -p git --command "nix run github:a2not/nixos-config --extra-experiment
 
 ref: https://github.com/librephoenix/nixos-config/blob/main/install.org
 
+## system build
+
+```bash
+sudo nixos-rebuild switch --flake .#system
+```
+
 ## home-manager
 
 ```bash
