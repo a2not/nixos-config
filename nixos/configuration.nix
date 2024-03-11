@@ -66,7 +66,7 @@
     config.nix.registry;
 
   nix.settings = {
-    experimental-features = [ "nix-command" "flakes" ];
+    experimental-features = ["nix-command" "flakes"];
     auto-optimise-store = true;
   };
 
@@ -96,7 +96,7 @@
       group = "users";
       home = "/home/a2not_";
       createHome = true;
-      extraGroups = [ "networkmanager" "wheel" ]; # TODO: docker
+      extraGroups = ["networkmanager" "wheel"]; # TODO: docker
       shell = pkgs.zsh;
     };
   };

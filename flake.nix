@@ -1,5 +1,5 @@
 {
-# kickstarted from https://github.com/Misterio77/nix-starter-configs
+  # kickstarted from https://github.com/Misterio77/nix-starter-configs
   description = "Nix (and possibly NixOS) configs";
 
   inputs = {

@@ -56,7 +56,7 @@
   environment.localBinInPath = true;
 
   # programs.zsh.enableCompletion
-  environment.pathsToLink = [ "/share/zsh" ];
+  environment.pathsToLink = ["/share/zsh"];
 
   programs.zsh = {
     enable = true;
@@ -78,8 +78,8 @@
       enable = true;
       plugins = [
         "git"
-          "zsh-autosuggestions"
-          "zsh-syntax-highlighting"
+        "zsh-autosuggestions"
+        "zsh-syntax-highlighting"
       ];
     };
   };

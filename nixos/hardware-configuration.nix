@@ -1,7 +1,4 @@
-{
-  lib,
-  ...
-}: {
+{lib, ...}: {
   # NOTE: for lima: system mounts
   boot.loader.grub = {
     device = "nodev";
@@ -9,14 +6,14 @@
     efiInstallAsRemovable = true;
   };
   fileSystems."/boot" = {
-    device = lib.mkDefault "/dev/vda1";  # /dev/disk/by-label/ESP
-      fsType = "vfat";
+    device = lib.mkDefault "/dev/vda1"; # /dev/disk/by-label/ESP
+    fsType = "vfat";
   };
   fileSystems."/" = {
     device = "/dev/disk/by-label/nixos";
     autoResize = true;
     fsType = "ext4";
-    options = [ "noatime" "nodiratime" "discard" ];
+    options = ["noatime" "nodiratime" "discard"];
   };
 
   nixpkgs.hostPlatform = "x86_64-linux";
