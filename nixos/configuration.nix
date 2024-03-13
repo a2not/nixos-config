@@ -2,20 +2,12 @@
   inputs,
   lib,
   config,
-  # modulesPath,
   pkgs,
   systemSettings,
   userSettings,
   ...
 }: {
   imports = [
-    # NOTE: for lima
-    # (modulesPath + "/profiles/qemu-guest.nix")
-    # outputs.nixosModules.nixos-in-lima.configuration
-    # outputs.nixosModules.nixos-in-lima.lima-init
-    # outputs.nixosModules.nixos-in-lima.lima-runtime
-
-    ./hardware-configuration.nix
   ];
 
   nixpkgs = {
@@ -47,7 +39,7 @@
   networking.hostName = systemSettings.hostname;
   networking.networkmanager.enable = true;
 
-  # boot.loader.systemd-boot.enable = true;
+  boot.loader.systemd-boot.enable = true;
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
   time.timeZone = systemSettings.timezone;
@@ -81,10 +73,9 @@
     wget
     zsh
     git
-    cryptsetup
-    home-manager
   ];
 
+  services.getty.autologinUser = userSettings.username;
   users.users = {
     ${userSettings.username} = {
       isNormalUser = true;
