@@ -37,6 +37,8 @@
       email = "a2not.dev@gmail.com";
     };
   in {
+    inherit systemSettings userSettings;
+
     nixosConfigurations = {
       system = nixpkgs.lib.nixosSystem {
         system = systemSettings.system;
