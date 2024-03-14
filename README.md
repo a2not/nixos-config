@@ -22,3 +22,16 @@ sudo nixos-rebuild switch --flake .#system
 ```bash
 nix run home-manager/master -- switch --flake .#user
 ```
+
+## useful commands
+
+### check flake metadata
+
+from: https://fasterthanli.me/series/building-a-rust-service-with-nix/part-10#a-flake-with-a-dev-shell
+
+this comes in handy especially when wanting to check if we're properly setting `inputs.<some_package>.follows`.
+
+```bash
+nix flake metadata
+```
+
