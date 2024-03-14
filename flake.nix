@@ -39,28 +39,32 @@
   in {
     inherit systemSettings userSettings;
 
-    nixosConfigurations.system = nixpkgs.lib.nixosSystem {
-      system = systemSettings.system;
-      specialArgs = {
-        inherit inputs outputs;
-        inherit systemSettings;
-        inherit userSettings;
+    nixosConfigurations = {
+      system = nixpkgs.lib.nixosSystem {
+        system = systemSettings.system;
+        specialArgs = {
+          inherit inputs outputs;
+          inherit systemSettings;
+          inherit userSettings;
+        };
+        modules = [
+          ./nixos/configuration.nix
+        ];
       };
-      modules = [
-        ./nixos/configuration.nix
-      ];
     };
 
-    homeConfigurations.user = home-manager.lib.homeManagerConfiguration {
-      pkgs = nixpkgs.legacyPackages.${systemSettings.system}; # Home-manager requires 'pkgs' instance
-      extraSpecialArgs = {
-        inherit inputs outputs;
-        inherit systemSettings;
-        inherit userSettings;
+    homeConfigurations = {
+      user = home-manager.lib.homeManagerConfiguration {
+        pkgs = nixpkgs.legacyPackages.${systemSettings.system}; # Home-manager requires 'pkgs' instance
+        extraSpecialArgs = {
+          inherit inputs outputs;
+          inherit systemSettings;
+          inherit userSettings;
+        };
+        modules = [
+          ./home-manager/home.nix
+        ];
       };
-      modules = [
-        ./home-manager/home.nix
-      ];
     };
 
     # NOTE: in case if i want to use home-manager as a NixOS module instead of standalone
