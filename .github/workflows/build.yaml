@@ -1,0 +1,27 @@
+# good reference: https://github.com/malob/nixpkgs/blob/master/.github/workflows/ci.yml
+
+name: Build
+
+on:
+  pull_request:
+    paths:
+    - '**'
+    - '!**.md'
+
+jobs:
+  build-linux-env:
+    name: Build Linux Nix env
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Install Nix
+      uses: cachix/install-nix-action@v26
+      with:
+        extra_nix_config: |-
+          experimental-features = nix-command flakes
+
+    - name: Build
+      run: |
+        nix build --flake .
