@@ -29,13 +29,26 @@
       timezone = "Asia/Tokyo";
       locale = "en_US.UTF-8";
       stateVersion = "23.11";
+
+      bootMode = "uefi"; # uefi or bios
+      bootMountPath = "/boot"; # mount path for efi boot partition; only used for uefi boot mode
+      grubDevice = ""; # device identifier for grub; only used for legacy (bios) boot mode
     };
 
     userSettings = {
       username = "a2not";
       name = "a2not";
       email = "a2not.dev@gmail.com";
+
+      editor = "neovim";
     };
+
+    supportedSystems = ["x86_64-linux" "aarch64-linux"];
+    # Function to generate a set based on supported systems:
+    forAllSystems = nixpkgs.lib.genAttrs supportedSystems;
+    # Attribute set of nixpkgs for each system:
+    nixpkgsFor =
+      forAllSystems (system: import inputs.nixpkgs {inherit system;});
   in {
     inherit systemSettings userSettings;
 
@@ -82,5 +95,27 @@
     #   environment.systemPackages =
     #     [ inputs.home-manager.packages.${pkgs.system}.default ];
     # }
+
+    # install script
+    packages = forAllSystems (system: let
+      pkgs = nixpkgsFor.${system};
+    in {
+      default = self.packages.${system}.install;
+
+      install = pkgs.writeShellApplication {
+        name = "install";
+        runtimeInputs = with pkgs; [git neovim];
+        text = ''${./scripts/install.sh} "$@"'';
+      };
+    });
+
+    apps = forAllSystems (system: {
+      default = self.apps.${system}.install;
+
+      install = {
+        type = "app";
+        program = "${self.packages.${system}.install}/bin/install";
+      };
+    });
   };
 }
