@@ -4,14 +4,13 @@ A command to apply configs in NixOS.
 It's currently not working but one day I'll fix it.
 
 ```bash
-nix-shell -p git --command "nix run github:a2not/nixos-config --extra-experimental-features nix-command --extra-experimental-features flakes"
+nix-shell -p git --command "nix run github:a2not/nixos-config --extra-experimental-features 'nix-command flakes'"
 ```
 
 ref: https://github.com/librephoenix/nixos-config/blob/main/install.org
+ref: https://librephoenix.com/2024-03-14-managing-your-nixos-config-with-git#org9fe2aab
 
 ## system build
-
-add `--impure` flag if NixOS system config is including lima configs (to enable absolute paths in those lima configs).
 
 ```bash
 sudo nixos-rebuild switch --flake .#system
