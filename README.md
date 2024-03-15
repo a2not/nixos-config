@@ -35,3 +35,21 @@ this comes in handy especially when wanting to check if we're properly setting `
 nix flake metadata
 ```
 
+### debug nix flake
+
+from: https://nixos-and-flakes.thiscute.world/best-practices/debugging#debugging-derivations-and-nix-expressions
+
+to debug the output (and/or inputs or everything in between) of the nix flake.
+
+```bash
+nix repl
+
+# inside nix repl shell, load the flake in the current directory
+nix-repl> :lf .
+
+# press <TAB> to see what we have in scope
+nix-repl><TAB>
+nix-repl>inputs.<TAB>
+nix-repl>outputs.<TAB>
+```
+
