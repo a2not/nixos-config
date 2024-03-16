@@ -17,6 +17,10 @@ else
     sed -i "0,/grubDevice.*=.*\".*\";/s//grubDevice = \"\/dev\/$grubDevice\";/" ~/nixos-config/flake.nix
 fi
 
+# Patch flake.nix with different username/name and remove email by default
+sed -i "0,/a2not/s//$(whoami)/" ~/.dotfiles/flake.nix
+sed -i "s/a2not.dev@gmail.com//" ~/.dotfiles/flake.nix
+
 # Open up editor to manually edit flake.nix before install
 if [ -z "$EDITOR" ]; then
     EDITOR=nano;
