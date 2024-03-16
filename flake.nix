@@ -37,6 +37,7 @@
 
     userSettings = {
       username = "a2not";
+      name = "a2not";
       email = "a2not.dev@gmail.com";
 
       editor = "neovim";
