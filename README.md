@@ -22,6 +22,8 @@ git clone https://github.com/a2not/nixos-config.git ~/nixos-config
 
 ```bash
 sudo nixos-generate-config --show-hardware-config > ~/nixos-config/nixos/hardware-configuration.nix
+cd ~/nixos-config
+git add -A
 sudo nixos-rebuild switch --flake ~/nixos-config#system
 ```
 
