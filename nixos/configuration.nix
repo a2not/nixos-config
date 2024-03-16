@@ -40,6 +40,7 @@
   networking.hostName = systemSettings.hostname;
   networking.networkmanager.enable = true;
 
+  # TODO: systemd-boot cannot be enabled safely with lima VM
   boot.loader.systemd-boot.enable = true;
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
