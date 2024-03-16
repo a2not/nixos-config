@@ -1,5 +1,6 @@
 # nixos-config
 
+## 🚧 [WIP] auto install
 A command to apply configs in NixOS.
 It's currently not working but one day I'll fix it.
 
@@ -8,18 +9,26 @@ nix-shell -p git --command "nix run github:a2not/nixos-config --extra-experiment
 ```
 
 ref: https://github.com/librephoenix/nixos-config/blob/main/install.org
+
 ref: https://librephoenix.com/2024-03-14-managing-your-nixos-config-with-git#org9fe2aab
 
-## system build
+## manual install
 
 ```bash
-sudo nixos-rebuild switch --flake .#system
+git clone https://github.com/a2not/nixos-config.git ~/nixos-config
 ```
 
-## home-manager
+### system build
 
 ```bash
-nix run home-manager/master -- switch --flake .#user
+sudo nixos-generate-config --show-hardware-config > ~/nixos-config/nixos/hardware-configuration.nix
+sudo nixos-rebuild switch --flake ~/nixos-config#system
+```
+
+### home-manager
+
+```bash
+nix run home-manager/master -- switch --flake ~/nixos-config#user
 ```
 
 ## useful commands
