@@ -41,16 +41,16 @@
   networking.networkmanager.enable = true;
 
   # NOTE: for lima: system mounts
-  boot.loader.grub = {
+  boot.loader.grub = lib.mkDefault {
     device = "nodev";
     efiSupport = true;
     efiInstallAsRemovable = true;
   };
-  fileSystems."/boot" = {
-    device = lib.mkDefault "/dev/vda1"; # /dev/disk/by-label/ESP
+  fileSystems."/boot" = lib.mkDefault {
+    device = "/dev/vda1"; # /dev/disk/by-label/ESP
     fsType = "vfat";
   };
-  fileSystems."/" = {
+  fileSystems."/" = lib.mkDefault {
     device = "/dev/disk/by-label/nixos";
     autoResize = true;
     fsType = "ext4";
