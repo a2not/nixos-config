@@ -13,12 +13,18 @@
       url = "github:nix-community/home-manager/release-23.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    nix-darwin = {
+      url = "github:LnL7/nix-darwin";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = {
     self,
     nixpkgs,
     home-manager,
+    nix-darwin,
     ...
   } @ inputs: let
     inherit (self) outputs;
@@ -51,6 +57,8 @@
       forAllSystems (system: import inputs.nixpkgs {inherit system;});
   in {
     inherit systemSettings userSettings;
+
+    formatter.${systemSettings.system} = nixpkgs.legacyPackages.${systemSettings.system}.alejandra;
 
     nixosConfigurations.system = nixpkgs.lib.nixosSystem {
       system = systemSettings.system;
@@ -95,6 +103,21 @@
     #   environment.systemPackages =
     #     [ inputs.home-manager.packages.${pkgs.system}.default ];
     # }
+
+    # TODO: haven't checked yet
+    darwinConfigurations.intel = nix-darwin.lib.darwinSystem {
+      system = "x86_64-darwin";
+      specialArgs = {
+        inherit inputs outputs;
+        inherit systemSettings;
+        inherit userSettings;
+      };
+      modules = [
+        ./darwin/configuration.nix
+        ./darwin/nix.nix
+        ./darwin/apps.nix
+      ];
+    };
 
     # install script
     packages = forAllSystems (system: let
