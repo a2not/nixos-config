@@ -58,6 +58,8 @@
       "arc"
       "mos"
       "stats"
+      "iterm2"
+      "raycast"
       "google-chrome"
     ];
   };
