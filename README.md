@@ -35,6 +35,8 @@ just build-home
 
 ## nix-darwin
 
+make sure to install Homebrew beforehand.
+
 ```bash
 jsut darwin
 ```
