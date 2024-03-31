@@ -46,7 +46,7 @@
       name = "a2not";
       email = "a2not.dev@gmail.com";
 
-      editor = "neovim";
+      editor = "nvim";
     };
 
     supportedSystems = ["x86_64-linux" "aarch64-linux"];
