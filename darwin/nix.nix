@@ -1,4 +1,8 @@
-{pkgs, ...}: {
+{
+  pkgs,
+  lib,
+  ...
+}: {
   nix.settings = {
     # enable flakes globally
     experimental-features = ["nix-command" "flakes"];
@@ -12,6 +16,11 @@
       "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
     ];
     builders-use-substitutes = true;
+  };
+
+  nix.gc = {
+    automatic = lib.mkDefault true;
+    options = lib.mkDefault "--delete-older-than 7d";
   };
 
   # Auto upgrade nix package and the daemon service.
