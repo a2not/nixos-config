@@ -21,16 +21,22 @@ git clone https://github.com/a2not/nixos-config.git ~/nixos-config
 ### system build
 
 ```bash
-sudo nixos-generate-config --show-hardware-config > ~/nixos-config/nixos/hardware-configuration.nix
 cd ~/nixos-config
+sudo nixos-generate-config --show-hardware-config > ~/nixos-config/nixos/hardware-configuration.nix
 git add -A
-sudo nixos-rebuild switch --flake ~/nixos-config#system
+just build-system
 ```
 
 ### home-manager
 
 ```bash
-nix run home-manager/master -- switch --flake ~/nixos-config#user
+just build-home
+```
+
+## nix-darwin
+
+```bash
+jsut darwin
 ```
 
 ## useful commands
